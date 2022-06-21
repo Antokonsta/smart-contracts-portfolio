@@ -1,6 +1,6 @@
 ## Solidity smart contract for erc-20 token
 
-- Smart contract was created
+- Smart contract was created 
 - Tests for smart contract were created (coverage is 100%)
 - Tasks were created:
 ```shell
