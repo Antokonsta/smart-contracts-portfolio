@@ -38,10 +38,18 @@ Requirements
 
 ### Installation
 ```shell
-npm install --save-dev @nomiclabs/hardhat-waffle ethereum-waffle 
-chai @nomiclabs/hardhat-ethers ethers @types/mocha dotenv win-ca
-hardhat @nomiclabs/hardhat-etherscan @nomiclabs/hardhat-ethers ts-node @typechain/hardhat
+npm install --save-dev @nomiclabs/hardhat-waffle ethereum-waffle chai @nomiclabs/hardhat-ethers ethers @types/mocha dotenv win-ca hardhat @nomiclabs/hardhat-etherscan @nomiclabs/hardhat-ethers ts-node @typechain/hardhat hardhat-gas-reporter
 ```
+
+### Tests
+```shell
+npx hardhat coverage --show-stack-traces --network hardhat
+```
+```shell
+npx hardhat test --show-stack-traces --network hardhat
+```
+
+
 
 ### Deployment 
 ```shell
@@ -56,3 +64,8 @@ npx hardhat run .\script\deploy.ts
 - mint
 - transfer
 - transfer-from
+
+### Verification
+
+- ```npx hardhat verify CONTRACT_ADDRESS --constructor-args arguments.ts```
+- Etherscan url: https://ropsten.etherscan.io/address/0x4BDdc46D9e10F5BBcE85b5a46B1f504940766a10#code

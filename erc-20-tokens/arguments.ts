@@ -1,0 +1,1 @@
+module.exports = ["PancakeShibaAvalanche", "PSA", 1_000_000, 18];
