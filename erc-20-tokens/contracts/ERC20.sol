@@ -1,8 +1,6 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import "hardhat/console.sol";
-
 /// @title ERC20 token contract with EIP20 compatibility
 /// @author Anton Konstantinov
 contract ERC20 {
@@ -73,7 +71,7 @@ contract ERC20 {
     /// @notice Moves amount tokens from the caller’s account to recipient
     /// @return Returns a boolean value indicating whether the operation succeeded.
     function transfer(address _to, uint256 _value) external returns (bool) {
-        address from = _msgSender();
+        address from = msg.sender;
         uint256 fromBalance = _balances[from];
 
         require(fromBalance >= _value, "ERC20: transfer amount exceeds balance");

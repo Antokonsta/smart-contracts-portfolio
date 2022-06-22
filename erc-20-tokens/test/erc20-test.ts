@@ -5,6 +5,7 @@
 import {expect} from "chai"
 import {Contract} from "ethers";
 import {SignerWithAddress} from "@nomiclabs/hardhat-ethers/dist/src/signer-with-address"
+import "@nomiclabs/hardhat-waffle";
 import {ethers} from "hardhat";
 
 describe("ERC20 functionality test", function () {
@@ -73,7 +74,7 @@ describe("ERC20 functionality test", function () {
         const transferFromTx = await erc20.connect(acc1).transferFrom(owner.address, acc2.address, 100)
         await transferFromTx.wait()
 
-        expect(await erc20.balanceOf(acc2.address)).to.equal(1000)
+        expect(await erc20.balanceOf(acc2.address)).to.equal(100)
         expect(await erc20.balanceOf(owner.address)).to.equal(900)
         expect(await erc20.allowance(owner.address, acc1.address)).to.equal(0)
     });

@@ -36,16 +36,23 @@ Requirements
 
 ## 💡 Solution:
 
-- Smart contract was created 
-- Tests for smart contract were created (coverage is 100%)
-- Tasks were created:
+### Installation
 ```shell
-npx hardhat create-election --candidates --election-name
-npx hardhat vote --candidate --election-name
-npx hardhat finish-election --election-name
-npx hardhat collect-commission
-npx hardhat in-progress --election-name
-npx hardhat prize --election-name
-npx hardhat count --candidate --election-name 
+npm install --save-dev @nomiclabs/hardhat-waffle ethereum-waffle 
+chai @nomiclabs/hardhat-ethers ethers @types/mocha dotenv win-ca
+hardhat @nomiclabs/hardhat-etherscan @nomiclabs/hardhat-ethers ts-node @typechain/hardhat
 ```
-- Deploy script was created
+
+### Deployment 
+```shell
+npx hardhat run .\script\deploy.ts
+```
+- Copy address of deployed contract and paste to .env file as CONTRACT_ADDRESS
+- Use tasks
+
+### Tasks 
+- approve
+- burn
+- mint
+- transfer
+- transfer-from
