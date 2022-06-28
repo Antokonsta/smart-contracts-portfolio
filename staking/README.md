@@ -58,11 +58,11 @@ npx hardhat coverage --show-stack-traces --network hardhat
 npx hardhat test --show-stack-traces --network hardhat
 ```
 
-
-
 ### Deployment 
+- Created LP token v2 via UniSwap website and paste to .env LPTOKEN_ADDRESS (need to approve spending)
+- Paste REWARD_TOKEN_ADDRESS to .env from previous assignment
 ```shell
-npx hardhat run .\script\deploy.ts
+npx hardhat run .\scripts\deploy.ts
 ```
 - Copy address of deployed contract and paste to .env file as CONTRACT_ADDRESS
 - Use tasks
@@ -74,5 +74,5 @@ npx hardhat run .\script\deploy.ts
 
 ### Verification
 
-- ```npx hardhat verify CONTRACT_ADDRESS --constructor-args arguments.ts```
-- Etherscan url: https://ropsten.etherscan.io/address/0x4BDdc46D9e10F5BBcE85b5a46B1f504940766a10#code
+- ```npx hardhat verify 0xA3E37497e5Df7148B59b6c87178c1EcBeE69CA8e --constructor-args arguments.ts```
+- Etherscan url: https://ropsten.etherscan.io/address/0xA3E37497e5Df7148B59b6c87178c1EcBeE69CA8e

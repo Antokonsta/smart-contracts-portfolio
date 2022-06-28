@@ -53,7 +53,7 @@ npx hardhat test --show-stack-traces --network hardhat
 
 ### Deployment 
 ```shell
-npx hardhat run .\script\deploy.ts
+npx hardhat run .\scripts\deploy.ts
 ```
 - Copy address of deployed contract and paste to .env file as CONTRACT_ADDRESS
 - Use tasks

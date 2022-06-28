@@ -1,1 +1,1 @@
-module.exports = ["PancakeShibaAvalanche", "PSA", 1_000_000, 18];
+module.exports = [process.env.LPTOKEN_ADDRESS as string, process.env.REWARD_TOKEN_ADDRESS as string];

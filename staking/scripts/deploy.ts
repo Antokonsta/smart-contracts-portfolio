@@ -3,7 +3,7 @@ import "@nomiclabs/hardhat-waffle";
 
 async function main() {
     const stakingFactory = await ethers.getContractFactory("Staking");
-    const stakingContract = await stakingFactory.deploy(process.env.REWARD_TOKEN_ADDRESS as string, process.env.LPTOKEN_ADDRESS as string);
+    const stakingContract = await stakingFactory.deploy(process.env.LPTOKEN_ADDRESS as string, process.env.REWARD_TOKEN_ADDRESS as string);
 
     await stakingContract.deployed();
 
