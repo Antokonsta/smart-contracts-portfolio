@@ -47,7 +47,7 @@ Requirements
 
 ### Installation
 ```shell
-npm install --save-dev @nomiclabs/hardhat-waffle ethereum-waffle chai @nomiclabs/hardhat-ethers ethers @types/mocha dotenv win-ca hardhat @nomiclabs/hardhat-etherscan @nomiclabs/hardhat-ethers ts-node @typechain/hardhat hardhat-gas-reporter
+npm install --save-dev @nomiclabs/hardhat-waffle ethereum-waffle chai @nomiclabs/hardhat-ethers ethers @types/mocha dotenv win-ca hardhat @nomiclabs/hardhat-etherscan @nomiclabs/hardhat-ethers ts-node @typechain/hardhat hardhat-gas-reporter solidity-coverage @openzeppelin/contracts
 ```
 
 ### Tests
@@ -68,11 +68,9 @@ npx hardhat run .\script\deploy.ts
 - Use tasks
 
 ### Tasks 
-- approve
-- burn
-- mint
-- transfer
-- transfer-from
+- stake
+- claim
+- unstake
 
 ### Verification
 

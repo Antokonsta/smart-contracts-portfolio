@@ -1,12 +1,12 @@
 require('win-ca').inject('+')
 import * as dotenv from "dotenv";
 
-import {HardhatUserConfig, task} from "hardhat/config";
+import { HardhatUserConfig, task } from "hardhat/config";
 import "@nomiclabs/hardhat-etherscan";
 import "@nomiclabs/hardhat-waffle";
 import "@typechain/hardhat";
+// import "hardhat-gas-reporter";
 import "solidity-coverage";
-import "hardhat-gas-reporter";
 
 import "./tasks/index.ts";
 
@@ -39,3 +39,6 @@ const config: HardhatUserConfig = {
 };
 
 export default config;
+
+
+
