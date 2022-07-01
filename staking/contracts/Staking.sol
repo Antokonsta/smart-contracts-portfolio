@@ -4,13 +4,11 @@ pragma solidity ^0.8.0;
 import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
-import "@openzeppelin/contracts/utils/math/SafeMath.sol";
 
 
 /// @title Staking contract
 /// @author Anton Konstantinov
 contract Staking is Ownable, ReentrancyGuard {
-    using SafeMath for uint256;
     uint256 private rewardPercent;
     uint256 private lockTime;
     uint256 private rewardFrequency;
