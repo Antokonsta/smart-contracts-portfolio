@@ -5,7 +5,7 @@ import { HardhatUserConfig, task } from "hardhat/config";
 import "@nomiclabs/hardhat-etherscan";
 import "@nomiclabs/hardhat-waffle";
 import "@typechain/hardhat";
-// import "hardhat-gas-reporter";
+import "hardhat-gas-reporter";
 import "solidity-coverage";
 
 import "./tasks/index.ts";
@@ -35,6 +35,10 @@ const config: HardhatUserConfig = {
         apiKey: {
             ropsten: process.env.ETHERSCAN_API as string
         }
+    },
+    gasReporter: {
+        currency: 'USD',
+        gasPrice: 21
     }
 };
 

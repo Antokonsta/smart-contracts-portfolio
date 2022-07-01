@@ -5,7 +5,6 @@ import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "@openzeppelin/contracts/utils/math/SafeMath.sol";
-import "hardhat/console.sol";
 
 
 /// @title Staking contract
@@ -53,15 +52,14 @@ contract Staking is Ownable, ReentrancyGuard {
 
     /// @notice Claims reward
     function claim() external nonReentrant returns (bool) {
-        Staker storage c = _stakers[msg.sender];
-
+        Staker storage s = _stakers[msg.sender];
+        uint256 reward;
     unchecked {
-        uint256 reward = ((c.amount * rewardPercent).div(100)) * ((block.timestamp - c.stakeTime).div(rewardFrequency)) - c.claimed;
-        require(reward > 0, "You have no rewards");
-        console.log("Trying to send %s reward", reward);
-        rewardToken.transfer(msg.sender, reward);
-        c.claimed += reward;
+        reward = (s.amount * rewardPercent / 100) * ((block.timestamp - s.stakeTime) / rewardFrequency) - s.claimed;
     }
+        require(reward > 0, "You have no rewards");
+        rewardToken.transfer(msg.sender, reward);
+        s.claimed += reward;
         return true;
     }
 
@@ -71,12 +69,13 @@ contract Staking is Ownable, ReentrancyGuard {
         require(s.amount > 0, "You have no deposit");
         require(s.stakeTime + lockTime < block.timestamp, "Lock time isn't finished");
 
+        uint256 reward;
     unchecked {
-        uint256 reward = ((s.amount * rewardPercent).div(100)) * ((block.timestamp - s.stakeTime).div(rewardFrequency)) - s.claimed;
+        reward = (s.amount * rewardPercent / 100) * ((block.timestamp - s.stakeTime) / rewardFrequency) - s.claimed;
+    }
         if (reward > 0) {
             rewardToken.transfer(msg.sender, reward);
         }
-    }
         lpToken.transfer(msg.sender, s.amount);
         s.amount = 0;
         s.claimed = 0;
