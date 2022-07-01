@@ -1,0 +1,1 @@
+module.exports = [process.env.LPTOKEN_ADDRESS as string, process.env.REWARD_TOKEN_ADDRESS as string];
