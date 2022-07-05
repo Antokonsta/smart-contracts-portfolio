@@ -29,7 +29,7 @@ describe("Staking ERC-20 functionality", function () {
 
         await rewardTokenContract.approve(stakingContract.address, 1_000_000);
         await lpPoolContract.transfer(acc1.address, stakingAmount);
-        await rewardTokenContract.transfer(stakingContract.address, 1_000)
+        await rewardTokenContract.transfer(stakingContract.address, 1_000_000)
 
         stakingContract = stakingContract.connect(acc1);
         lpPoolContract = lpPoolContract.connect(acc1);
@@ -111,6 +111,27 @@ describe("Staking ERC-20 functionality", function () {
         expect(rewardAfterClaim - initialReward).to.be.equal(stakingAmount * 20 * 2 / 100);
     });
 
+    it("Claim - should claim successfully after hour and then after 15 minutes", async function () {
+        await lpPoolContract.approve(stakingContract.address, stakingAmount);
+
+        const initialReward = await rewardTokenContract.balanceOf(acc1.address);
+        await stakingContract.stake(stakingAmount);
+
+        await network.provider.send("evm_increaseTime", [10 * 60 * 6]); // Add 1 hour
+        await stakingContract.claim();
+
+        const rewardAfterClaim = await rewardTokenContract.balanceOf(acc1.address);
+
+        expect(rewardAfterClaim - initialReward).to.be.equal(stakingAmount * 20 * 6 / 100);
+
+        await network.provider.send("evm_increaseTime", [10 * 60 * 1.5]); // Add 15 mins
+        await stakingContract.claim();
+
+        const rewardAfterClaim2 = await rewardTokenContract.balanceOf(acc1.address);
+
+        expect(rewardAfterClaim2 - rewardAfterClaim).to.be.equal(stakingAmount * 20 / 100);
+    });
+
     it("Claim - should claim successfully with new Reward Percent", async function () {
         await lpPoolContract.approve(stakingContract.address, stakingAmount);
 
@@ -156,4 +177,11 @@ describe("Staking ERC-20 functionality", function () {
         await expect(stakingContract.setLockTime(0)).to.be.revertedWith("'Ownable: caller is not the owner");
     });
 
+    it("getLpTokenAddress - should return LP token address", async function () {
+        expect(await stakingContract.getLpTokenAddress()).to.be.equal(lpPoolContract.address);
+    });
+
+    it("getRewardTokenAddress - should return reward token address", async function () {
+        expect(await stakingContract.getRewardTokenAddress()).to.be.equal(rewardTokenContract.address);
+    });
 });

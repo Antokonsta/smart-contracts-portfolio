@@ -47,7 +47,7 @@ Requirements
 
 ### Installation
 ```shell
-npm install --save-dev @nomiclabs/hardhat-waffle ethereum-waffle chai @nomiclabs/hardhat-ethers ethers @types/mocha dotenv win-ca hardhat @nomiclabs/hardhat-etherscan @nomiclabs/hardhat-ethers ts-node @typechain/hardhat hardhat-gas-reporter solidity-coverage @openzeppelin/contracts
+npm install --save-dev @nomiclabs/hardhat-waffle ethereum-waffle chai @nomiclabs/hardhat-ethers ethers @types/mocha dotenv win-ca hardhat @nomiclabs/hardhat-etherscan @nomiclabs/hardhat-ethers ts-node @typechain/hardhat hardhat-gas-reporter solidity-coverage @openzeppelin/contracts hardhat-contract-sizer
 ```
 
 ### Tests
@@ -74,5 +74,5 @@ npx hardhat run .\scripts\deploy.ts
 
 ### Verification
 
-- ```npx hardhat verify 0xA3E37497e5Df7148B59b6c87178c1EcBeE69CA8e --constructor-args arguments.ts```
-- Etherscan url: https://ropsten.etherscan.io/address/0xA3E37497e5Df7148B59b6c87178c1EcBeE69CA8e
+- ```npx hardhat verify 0xC0fb5d7Bc33eC201d09f7d9ac0014304494043b2 --constructor-args arguments.ts```
+- Etherscan url: https://ropsten.etherscan.io/address/0xC0fb5d7Bc33eC201d09f7d9ac0014304494043b2

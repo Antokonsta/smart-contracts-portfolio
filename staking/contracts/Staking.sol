@@ -17,6 +17,12 @@ contract Staking is Ownable, ReentrancyGuard {
     ERC20 private lpToken;
     ERC20 private rewardToken;
 
+    event Staked(uint256 amount);
+    event Claimed(uint256 amount);
+    event Unstaked(uint256 amount);
+
+
+
     struct Staker {
         uint256 claimed;
         uint256 amount;
@@ -45,6 +51,8 @@ contract Staking is Ownable, ReentrancyGuard {
         s.stakeTime = block.timestamp;
         s.claimed = 0;
 
+        emit Staked(_amount);
+
         return true;
     }
 
@@ -58,26 +66,30 @@ contract Staking is Ownable, ReentrancyGuard {
         require(reward > 0, "You have no rewards");
         rewardToken.transfer(msg.sender, reward);
         s.claimed += reward;
+
+        emit Claimed(reward);
         return true;
     }
 
     /// @notice Unstake all tokens + claim reward
     function unstake() external nonReentrant returns (bool) {
         Staker storage s = _stakers[msg.sender];
-        require(s.amount > 0, "You have no deposit");
+        uint256 amount = s.amount;
+        require(amount > 0, "You have no deposit");
         require(s.stakeTime + lockTime < block.timestamp, "Lock time isn't finished");
 
         uint256 reward;
     unchecked {
-        reward = (s.amount * rewardPercent / 100) * ((block.timestamp - s.stakeTime) / rewardFrequency) - s.claimed;
+        reward = (amount * rewardPercent / 100) * ((block.timestamp - s.stakeTime) / rewardFrequency) - s.claimed;
     }
         if (reward > 0) {
             rewardToken.transfer(msg.sender, reward);
         }
-        lpToken.transfer(msg.sender, s.amount);
+        lpToken.transfer(msg.sender, amount);
         s.amount = 0;
         s.claimed = 0;
 
+        emit Unstaked(amount);
         return true;
     }
 
@@ -95,5 +107,13 @@ contract Staking is Ownable, ReentrancyGuard {
     function setLockTime(uint256 _time) external onlyOwner returns (bool) {
         lockTime = _time;
         return true;
+    }
+
+    function getLpTokenAddress() public view returns (address) {
+        return address(lpToken);
+    }
+
+    function getRewardTokenAddress() public view returns (address) {
+        return address(rewardToken);
     }
 }
