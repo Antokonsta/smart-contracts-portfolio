@@ -42,7 +42,7 @@ https://docs.ipfs.io/
 
 ### Installation
 ```shell
-npm install --save-dev @nomiclabs/hardhat-waffle ethereum-waffle chai @nomiclabs/hardhat-ethers ethers @types/mocha dotenv win-ca hardhat @nomiclabs/hardhat-etherscan @nomiclabs/hardhat-ethers ts-node @typechain/hardhat hardhat-gas-reporter solidity-coverage @openzeppelin/contracts
+npm install --save-dev @nomiclabs/hardhat-waffle ethereum-waffle chai @nomiclabs/hardhat-ethers ethers @types/mocha dotenv win-ca hardhat @nomiclabs/hardhat-etherscan @nomiclabs/hardhat-ethers ts-node @typechain/hardhat hardhat-gas-reporter solidity-coverage @openzeppelin/contracts hardhat-contract-sizer
 ```
 
 ### Tests
@@ -54,20 +54,27 @@ npx hardhat test --show-stack-traces --network hardhat
 ```
 
 ### Deployment 
-- Created LP token v2 via UniSwap website and paste to .env LPTOKEN_ADDRESS (need to approve spending)
-- Paste REWARD_TOKEN_ADDRESS to .env from previous assignment
+- Deploy ERC-721 token and Copy address of deployed contract and paste to .env file as CONTRACT_ADDRESS_721
 ```shell
-npx hardhat run .\scripts\deploy.ts
+npx hardhat run .\scripts\deploy-721.ts
 ```
-- Copy address of deployed contract and paste to .env file as CONTRACT_ADDRESS
+
+- Deploy ERC-1155 token and Copy address of deployed contract and paste to .env file as CONTRACT_ADDRESS_1155
+```shell
+npx hardhat run .\scripts\deploy-1155.ts
+```
+
 - Use tasks
 
 ### Tasks 
-- stake
-- claim
-- unstake
+- need to create Json with metadata like : .\metadata\rhino.json (and pass it to --tokenUri), where image is a image file in ipfs
+- ```npx hardhat mint-721 --to 0x6757a87A1df3546a78C8BC9A05b38b87A1933774 --uri ipfs://QmccGF1pm58Tjm93gHVsv8fMqYrKkZr4XpgQxM1NynodR3```
+- mint-1155
 
-### Verification
+### Verification 
 
-- ```npx hardhat verify 0xA3E37497e5Df7148B59b6c87178c1EcBeE69CA8e --constructor-args arguments.ts```
-- Etherscan url: https://ropsten.etherscan.io/address/0xA3E37497e5Df7148B59b6c87178c1EcBeE69CA8e
+- ```npx hardhat verify 0x52fc87D051dfF9aF784A95dd7E0a484DC1288182```
+- Etherscan url: https://rinkeby.etherscan.io/address/0x52fc87d051dff9af784a95dd7e0a484dc1288182#code
+
+### OpenSea
+- ERC-721 collection: https://testnets.opensea.io/collection/pancakeshibaavalanche

@@ -7,6 +7,7 @@ import "@nomiclabs/hardhat-waffle";
 import "@typechain/hardhat";
 import "hardhat-gas-reporter";
 import "solidity-coverage";
+import "hardhat-contract-sizer";
 
 import "./tasks/index.ts";
 
@@ -24,21 +25,26 @@ task("accounts", "Prints the list of accounts", async (taskArgs, hre) => {
 
 const config: HardhatUserConfig = {
     solidity: "0.8.4",
-    defaultNetwork: "ropsten",
+    defaultNetwork: "rinkeby",
     networks: {
-        ropsten: {
+        rinkeby: {
             url: process.env.URL,
             accounts: [process.env.PRIVATE_KEY as string],
+            chainId: 4
         }
     },
     etherscan: {
-        apiKey: {
-            ropsten: process.env.ETHERSCAN_API as string
-        }
+        apiKey: process.env.ETHERSCAN_API,
     },
     gasReporter: {
         currency: 'USD',
         gasPrice: 21
+    },
+    contractSizer: {
+        alphaSort: true,
+        disambiguatePaths: false,
+        runOnCompile: true,
+        strict: true
     }
 };
 
