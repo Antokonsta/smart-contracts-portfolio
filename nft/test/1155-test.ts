@@ -25,10 +25,10 @@ describe("ERC-1155 test", function () {
     it("mintToken - should mint", async () => {
         expect(await erc1155.balanceOf(acc1.address, 0)).to.equal(0);
 
-        await erc1155.mintToken(acc1.address, 0, 10, "QmcVuxccdpTUFemjK6G9eGqcig7rEVinfDa3bswXBVkJvY");
+        await erc1155.mintToken(acc1.address, 0, 10);
         expect(await erc1155.balanceOf(acc1.address, 0)).to.equal(10);
 
-        await erc1155.mintToken(acc1.address, 0, 10, "QmcVuxccdpTUFemjK6G9eGqcig7rEVinfDa3bswXBVkJvY");
+        await erc1155.mintToken(acc1.address, 0, 10);
         expect(await erc1155.balanceOf(acc1.address, 0)).to.equal(20);
     });
 

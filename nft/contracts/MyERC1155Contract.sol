@@ -9,11 +9,13 @@ import "@openzeppelin/contracts/token/ERC1155/ERC1155.sol";
 /// @author Anton Konstantinov
 contract MyERC1155Contract is ERC1155 {
 
-    constructor() ERC1155("https://ipfs.io/ipfs/QmdqL2dsxW2Eepd6m34PCbWJCtEztKv1rgWxPhV8LYfGV4/{id}.json") {}
+    string public name = "Anton ERC-1155 collection v4";
+    string public symbol = "Anton1155Collv4";
 
-    function mintToken(address to, uint256 tokenId, uint256 amount, string memory metadata) external {
+    constructor() ERC1155("https://gateway.pinata.cloud/ipfs/QmSwM1FfmUZrAJy8JMTnkxinJpWvTbznJNRxnCXyrXiSb7/{id}.json") {}
+
+    function mintToken(address to, uint256 tokenId, uint256 amount) external {
         _mint(to, tokenId, amount, "");
-        _setURI(metadata);
     }
 
 }

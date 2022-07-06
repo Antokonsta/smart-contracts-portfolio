@@ -67,14 +67,26 @@ npx hardhat run .\scripts\deploy-1155.ts
 - Use tasks
 
 ### Tasks 
+721:
 - need to create Json with metadata like : .\metadata\rhino.json (and pass it to --tokenUri), where image is a image file in ipfs
 - ```npx hardhat mint-721 --to 0x6757a87A1df3546a78C8BC9A05b38b87A1933774 --uri ipfs://QmccGF1pm58Tjm93gHVsv8fMqYrKkZr4XpgQxM1NynodR3```
-- mint-1155
+
+1155:
+- need to create folder in IPFS and add JSON metadata files with ids like: 0.json, 1.json, 2.json
+- URI can't be changed (set in the constructor)
+- need to make sure that picture is discoverable in IPFS
+- ```npx hardhat mint-1155 --to 0x6757a87A1df3546a78C8BC9A05b38b87A1933774 --id 2 --amount 20```
 
 ### Verification 
 
+721:
 - ```npx hardhat verify 0x52fc87D051dfF9aF784A95dd7E0a484DC1288182```
 - Etherscan url: https://rinkeby.etherscan.io/address/0x52fc87d051dff9af784a95dd7e0a484dc1288182#code
 
+1155:
+- ```npx hardhat verify 0xb6F79487A0CEd90A8ded7e6d08bac86539AE4543```
+- Etherscan url: https://rinkeby.etherscan.io/address/0xb6F79487A0CEd90A8ded7e6d08bac86539AE4543#code
+
 ### OpenSea
 - ERC-721 collection: https://testnets.opensea.io/collection/pancakeshibaavalanche
+- ERC-1155 collection: https://testnets.opensea.io/collection/anton-erc-1155-collection-v4
