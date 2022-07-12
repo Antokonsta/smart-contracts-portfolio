@@ -163,10 +163,10 @@ contract MyMarketplaceContract is ERC721Holder, ERC1155Holder {
 
     /// @notice List item721 for auction, msg.sender should be the owner of the token
     function listItemOnAuction721(uint256 id, uint256 minPrice) public {
-        myErc721.safeTransferFrom(msg.sender, address(this), id);
-
         AuctionItem721 storage a = _auctionItems721[id];
         require(!a.available, "Item is already listed for auction");
+
+        myErc721.safeTransferFrom(msg.sender, address(this), id);
 
         a.startDate = block.timestamp;
         a.lastPrice = minPrice;
@@ -178,10 +178,10 @@ contract MyMarketplaceContract is ERC721Holder, ERC1155Holder {
 
     /// @notice List item1155 for auction, msg.sender should be the owner of the token
     function listItemOnAuction1155(uint256 id, uint256 amount, uint256 minPrice) public {
-        myErc1155.safeTransferFrom(msg.sender, address(this), id, amount, "");
-
         AuctionItem1155 storage a = _auctionItems1155[id];
         require(!a.available, "Item is already listed for auction");
+
+        myErc1155.safeTransferFrom(msg.sender, address(this), id, amount, "");
 
         a.startDate = block.timestamp;
         a.lastPrice = minPrice;
@@ -199,7 +199,7 @@ contract MyMarketplaceContract is ERC721Holder, ERC1155Holder {
         require(price > a.lastPrice, "Bid is too low");
 
         if (a.bidsNumber > 0) {
-            myErc20.transferFrom(address(this), a.lastBuyer, a.lastPrice);
+            myErc20.transfer(a.lastBuyer, a.lastPrice);
         }
 
         myErc20.transferFrom(msg.sender, address(this), price);
@@ -218,7 +218,7 @@ contract MyMarketplaceContract is ERC721Holder, ERC1155Holder {
         require(price > a.lastPrice, "Bid is too low");
 
         if (a.bidsNumber > 0) {
-            myErc20.transferFrom(address(this), a.lastBuyer, a.lastPrice);
+            myErc20.transfer(a.lastBuyer, a.lastPrice);
         }
 
         myErc20.transferFrom(msg.sender, address(this), price);
@@ -237,7 +237,7 @@ contract MyMarketplaceContract is ERC721Holder, ERC1155Holder {
         require(block.timestamp > a.startDate + 3 days, "Auction is not finished");
         require(a.bidsNumber >= 2, "Bids number is less than 2");
 
-        myErc20.transferFrom(address(this), a.owner, a.lastPrice);
+        myErc20.transfer(a.owner, a.lastPrice);
         myErc721.safeTransferFrom(address(this), a.lastBuyer, id);
 
         a.available = false;
@@ -252,7 +252,7 @@ contract MyMarketplaceContract is ERC721Holder, ERC1155Holder {
         require(block.timestamp > a.startDate + 3 days, "Auction is not finished");
         require(a.bidsNumber >= 2, "Bids number is less than 2");
 
-        myErc20.transferFrom(address(this), a.owner, a.lastPrice);
+        myErc20.transfer(a.owner, a.lastPrice);
         myErc1155.safeTransferFrom(address(this), a.lastBuyer, id, a.amount, "");
 
         a.available = false;
@@ -267,7 +267,7 @@ contract MyMarketplaceContract is ERC721Holder, ERC1155Holder {
         require(block.timestamp > a.startDate + 3 days, "Auction is not finished");
         require(a.bidsNumber < 2, "Bids were already made");
 
-        myErc20.transferFrom(address(this), a.lastBuyer, a.lastPrice);
+        myErc20.transfer(a.lastBuyer, a.lastPrice);
         myErc721.safeTransferFrom(address(this), a.owner, id);
 
         a.available = false;
@@ -282,7 +282,7 @@ contract MyMarketplaceContract is ERC721Holder, ERC1155Holder {
         require(block.timestamp > a.startDate + 3 days, "Auction is not finished");
         require(a.bidsNumber < 2, "Bids were already made");
 
-        myErc20.transferFrom(address(this), a.lastBuyer, a.lastPrice);
+        myErc20.transfer(a.lastBuyer, a.lastPrice);
         myErc1155.safeTransferFrom(address(this), a.owner, id, a.amount, "");
 
         a.available = false;
