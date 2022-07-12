@@ -1,2 +1,2 @@
-import "./mint-721.ts";
-import "./mint-1155.ts";
+import "./createItem721.ts";
+import "./createItem1155.ts";

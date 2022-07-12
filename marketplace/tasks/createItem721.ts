@@ -5,20 +5,19 @@ import "@nomiclabs/hardhat-waffle";
 
 dotenv.config();
 
-task("mint-721", "Mint Token")
-    .addParam("to", "Address to mint to")
+task("createItem721", "Mint Token")
     .addParam("uri", "URI of the token")
     .setAction(async (taskArgs, hre) => {
         const [signer] = await hre.ethers.getSigners();
-        const contractAddr = process.env.CONTRACT_ADDRESS_721;
+        const contractAddr = process.env.CONTRACT_ADDRESS_MARKET;
 
-        const myERC721Contract = await hre.ethers.getContractAt(
-            "MyERC721Contract",
+        const myMarketplaceContract = await hre.ethers.getContractAt(
+            "MyMarketplaceContract",
             contractAddr as string,
             signer
         );
 
-        const result = await myERC721Contract.mintToken(taskArgs.to, taskArgs.uri);
+        const result = await myMarketplaceContract.createItem721(taskArgs.uri);
 
         console.log(result);
     });
