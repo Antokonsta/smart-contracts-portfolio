@@ -43,6 +43,22 @@ https://docs.soliditylang.org/en/v0.8.0/units-and-global-variables.html#mathemat
 
 ## 💡 Solution:
 
+### Business process description (token from ethereum to BSC):
+- User calls swap function on the contract in ethereum network => SwapInitialized event will be emitted
+- Server process SwapInitialized event and signs the request to redeem using bridge owner account => signature was created
+```shell
+const messageToSign = ethers.utils.arrayify(
+            ethers.utils.solidityKeccak256(
+            ["address", "address", "uint256", "uint256", "uint256"],
+            [myTokenBsc.address, acc2.address, swapAmount, initialNonce, hardhatChainId])
+        );
+const signature = await validator.signMessage(messageToSign);
+const sig = ethers.utils.splitSignature(signature);
+await bridgeBsc.connect(acc2).redeem(myTokenBsc.address, acc2.address, swapAmount, initialNonce, hardhatChainId, sig.v, sig.r, sig.s);
+```
+- User calls redeem function using the given signature
+
+
 ### Installation
 ```shell
 npm install --save-dev @nomiclabs/hardhat-waffle ethereum-waffle chai @nomiclabs/hardhat-ethers ethers @types/mocha dotenv win-ca hardhat @nomiclabs/hardhat-etherscan @nomiclabs/hardhat-ethers ts-node @typechain/hardhat hardhat-gas-reporter solidity-coverage @openzeppelin/contracts hardhat-contract-sizer
@@ -57,18 +73,27 @@ npx hardhat test --show-stack-traces --network hardhat
 ```
 
 ### Deployment 
-- Deploy marketplace contract with CONTRACT_ADDRESS_ERC20,CONTRACT_ADDRESS_721,CONTRACT_ADDRESS_1155 and Copy address of deployed contract and paste to .env file as CONTRACT_ADDRESS_MARKET
+- Deploy bridge contract and Copy address of deployed contract and paste to .env file as CONTRACT_ADDRESS_BRIDGE
+Ethereum's deployment:
 ```shell
 npx hardhat run .\scripts\deploy.ts
 ```
 
-- Use tasks
+Binance smart chain deployment:
+```shell
+npx hardhat run ./scripts/deploy.ts --network binance_testnet
+```
 
 ### Tasks
-- mint-721
-- mint-
+- swap
+- redeem
 
 ### Verification
-- ```npx hardhat verify 0xBB2e77Fcc066e1f09E5A65735f4C0F326d313321 --constructor-args arguments.ts```
-- Etherscan url: https://rinkeby.etherscan.io/address/0xBB2e77Fcc066e1f09E5A65735f4C0F326d313321#code
+Ethereum's verification:
+- ```npx hardhat verify 0xe4266aE5853b4F8fA63075E28060e99027EdC08F```
+- Etherscan url: https://rinkeby.etherscan.io/address/0xe4266aE5853b4F8fA63075E28060e99027EdC08F#code
+
+Binance smart chain verification:
+- ```npx hardhat verify 0x52fc87D051dfF9aF784A95dd7E0a484DC1288182 --network binance_testnet```
+- BscScan url: https://testnet.bscscan.com/address/0x52fc87D051dfF9aF784A95dd7E0a484DC1288182#code
 
