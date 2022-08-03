@@ -31,16 +31,10 @@ const config: HardhatUserConfig = {
             url: process.env.URL,
             accounts: [process.env.PRIVATE_KEY as string],
             chainId: 4
-        },
-        binance_testnet: {
-            url: "https://data-seed-prebsc-1-s1.binance.org:8545",
-            accounts: [process.env.PRIVATE_KEY as string],
-            chainId: 97
-        },
+        }
     },
     etherscan: {
-        //apiKey: process.env.ETHERSCAN_API, //ETH api key
-        apiKey: process.env.ETHERSCAN_API_BSC //BSC api key
+        apiKey: process.env.ETHERSCAN_API //ETH api key
     },
     gasReporter: {
         currency: 'USD',
