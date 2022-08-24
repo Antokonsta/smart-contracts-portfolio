@@ -51,12 +51,6 @@ https://docs.google.com/presentation/d/1Cc9Dr-RuzMbOYb-UdKPZohL_i-SRzR1M/edit?us
 WEB3
 https://web3js.readthedocs.io/en/v1.2.11/web3-eth-abi.html
 
-ethers
-https://docs.ethers.io/v5/api/utils/abi/coder/
-
-NatSpec:
-https://docs.soliditylang.org/en/develop/natspec-format.html#tags
-
 ## 💡 Solution:
 
 ### Installation
@@ -73,7 +67,7 @@ npx hardhat test --show-stack-traces --network hardhat
 ```
 
 ### Deployment 
-- Deploy dao contract and Copy address of deployed contract and paste to .env file as CONTRACT_ADDRESS_DAO
+- Deploy dao contract and copy address of deployed contract and paste to .env file as CONTRACT_ADDRESS_DAO
 ```shell
 npx hardhat run .\scripts\deploy.ts
 ```
